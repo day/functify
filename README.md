@@ -9,6 +9,8 @@ This monkey patch adds a method to Hash, which (when invoked) adds a function fo
     $ ./functify
     FUNCTIFY v0.0.1
     Please enter a hash to be functified:
+    56
+    You must enter a hash in Ruby or JSON format; i.e. {:a => 7} or {"a": 7}
     {:a => 7}
     7
 
