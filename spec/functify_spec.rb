@@ -10,7 +10,7 @@ describe Hash do
         context "so {:a => #{n}}.functify.a" do
           it "returns #{n}" do
             expect({:a => n}.functify.a).to eq(n)
-            expect{{:a => n}.functify.b}.to_raise MethodNotFound
+            expect{{:a => n}.functify.b}.to raise_error(NoMethodError)
           end
         end
       end
@@ -22,7 +22,7 @@ describe Hash do
     end
     it "does not modify every Hash object" do
       {:a => 1}.functify
-      expect({:a => 1}.a).to_raise MethodNotFound
+      expect{{:a => 1}.a}.to raise_error(NoMethodError)
     end
     it "is still a hash" do
       expect({:a => 1}.functify[:a]).to eq(1)
