@@ -1,0 +1,9 @@
+#!/Users/day/.rvm/rubies/ruby-2.2.1/bin/ruby
+# FUNCTIFY v0.0.1
+# Given a hash, adds a function for each key in the hash which returns the value
+# for that key at the time it was functified. E.g. {:a => 1}.functify.a == 1
+require_relative "/Users/day/Development/SquareCube/squarecube.rb"
+puts "FUNCTIFY v0.0.1"
+puts "Please enter a hash to be functified:"
+input = gets.chomp.to_hash
+puts input.functify
