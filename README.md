@@ -5,6 +5,13 @@ This monkey patch adds a method to Hash, which (when invoked) adds a function fo
 ## Example Usage
     {:a => 1}.functify.a == 1
 
+## Command Line
+    $ ./functify
+    FUNCTIFY v0.0.1
+    Please enter a hash to be functified:
+    {:a => 7}
+    7
+
 ## Build Status
     Hash
       #functify
