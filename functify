@@ -24,9 +24,8 @@ while input.class.to_s != "Hash"
   # Give the input the benefit of the doubt
 	error = false
 	# But handle errors just in case
-	input = JSON.parse(hash_text)
 	begin
-		yadd = ""
+		input = JSON.parse(hash_text)
 	rescue
 		error = true
 	end
