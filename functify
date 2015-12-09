@@ -2,8 +2,44 @@
 # FUNCTIFY v0.0.1
 # Given a hash, adds a function for each key in the hash which returns the value
 # for that key at the time it was functified. E.g. {:a => 1}.functify.a == 1
-require_relative "/Users/day/Development/SquareCube/squarecube.rb"
+require_relative "/Users/day/Development/Functify/functify.rb"
+require "json"
 puts "FUNCTIFY v0.0.1"
 puts "Please enter a hash to be functified:"
-input = gets.chomp.to_hash
-puts input.functify
+# Initialize the input to start the loop 
+input = ""
+# Loop until we have a decent hash
+while input.class.to_s != "Hash"
+  # Get the input and clean it up
+  hash_text = gets.chomp.gsub(/[\n\t\s]/, '')
+  hash_text.gsub!(/([{,]\s*):([^>\s]+)\s*=>/, '\1"\2"=>')
+  # Transform object string numbers to quoted strings
+  hash_text.gsub!(/([{,]\s*)([0-9]+\.?[0-9]*)\s*=>/, '\1"\2"=>')
+  # Transform object value symbols to quotes strings
+  hash_text.gsub!(/([{,]\s*)(".+?"|[0-9]+\.?[0-9]*)\s*=>\s*:([^,}\s]+\s*)/, '\1\2=>"\3"')
+  # Transform array value symbols to quotes strings
+  hash_text.gsub!(/([\[,]\s*):([^,\]\s]+)/, '\1"\2"')
+  # Transform object string object value delimiter to colon delimiter
+  hash_text.gsub!(/([{,]\s*)(".+?"|[0-9]+\.?[0-9]*)\s*=>/, '\1\2:')
+  # Give the input the benefit of the doubt
+	error = false
+	# But handle errors just in case
+	input = JSON.parse(hash_text)
+	begin
+		yadd = ""
+	rescue
+		error = true
+	end
+	# This is probably redundant...but would it really be engineering without redundancy? ;-)
+	if input.class.to_s != "Hash"
+		error = true
+	end
+	# We understand it can be difficult to enter hashes by hand on the command line, but still...
+	if error == true
+    puts 'You must enter a hash in Ruby or JSON format; i.e. {:a => 7} or {"a": 7}'
+  end
+end
+# Once we have a proper hash, we exercise the newly created functions to prove they exist
+input.functify.keys.each do |func|
+  puts input.send(func)
+end
